@@ -15,16 +15,16 @@ axios.interceptors.request.use(
 // 返回后拦截
 axios.interceptors.response.use(
   data => {
-    if (data.status && data.status == 200 && data.data.status == 'error') {
+    if (data.status && data.status === 200 && data.data.status === 'error') {
       Message.error({ message: data.data.msg })
       return
     }
     return data
   },
   err => {
-    if (err.response.status == 504 || err.response.status == 404) {
+    if (err.response.status === 504 || err.response.status === 404) {
       Message.error({ message: '服务器被吃了⊙﹏⊙∥' })
-    } else if (err.response.status == 403) {
+    } else if (err.response.status === 403) {
       Message.error({ message: '权限不足,请联系管理员!' })
     } else {
       Message.error({ message: '未知错误!' })
@@ -35,13 +35,13 @@ axios.interceptors.response.use(
 
 let base = '/api'
 
-export const postRequest = (url, params) => {
+const postRequest = (url, params) => {
   return axios({
     method: 'post',
     url: `${base}${url}`,
     data: params,
     transformRequest: [
-      function(data) {
+      function (data) {
         let ret = ''
         for (let it in data) {
           ret +=
@@ -56,9 +56,14 @@ export const postRequest = (url, params) => {
   })
 }
 
-export const getRequest = url => {
+const getRequest = url => {
   return axios({
     method: 'get',
     url: `${base}${url}`
   })
+}
+
+export {
+  postRequest,
+  getRequest
 }

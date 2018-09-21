@@ -12,10 +12,10 @@
 import urls from './axios/urls.js'
 
 export default {
-  data() {
+  data () {
     return {}
   },
-  mounted() {
+  mounted () {
     this.getRequest(urls.hello).then(res => {
       console.log(res)
     })
