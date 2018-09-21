@@ -8,6 +8,26 @@
   </div>
 </template>
 
+<script>
+export default {
+  data () {
+    return {}
+  },
+  mounted () {
+    this.$http({
+      method: 'GET',
+      url: '/api/test/hello'
+    })
+      .then(function (res) {
+        console.log(res)
+      })
+      .catch(function (res) {
+        console.log(res)
+      })
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
