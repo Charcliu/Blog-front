@@ -9,21 +9,16 @@
 </template>
 
 <script>
+import urls from './axios/urls.js'
+
 export default {
-  data () {
+  data() {
     return {}
   },
-  mounted () {
-    this.$http({
-      method: 'GET',
-      url: '/api/test/hello'
+  mounted() {
+    this.getRequest(urls.hello).then(res => {
+      console.log(res)
     })
-      .then(function (res) {
-        console.log(res)
-      })
-      .catch(function (res) {
-        console.log(res)
-      })
   }
 }
 </script>

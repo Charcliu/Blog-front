@@ -2,9 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
+import './plugins/element.js'
 
-import axios from 'axios'
-Vue.prototype.$http = axios
+// 封装Axios
+import {getRequest} from './axios/http'
+import {postRequest} from './axios/http'
+Vue.prototype.getRequest = getRequest;
+Vue.prototype.postRequest = postRequest;
 
 Vue.config.productionTip = false
 
