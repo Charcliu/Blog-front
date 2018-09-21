@@ -3,9 +3,13 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 import './plugins/element.js'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 // 封装Axios
 import { getRequest, postRequest } from './axios/http'
+// use
+Vue.use(mavonEditor)
 Vue.prototype.getRequest = getRequest
 Vue.prototype.postRequest = postRequest
 

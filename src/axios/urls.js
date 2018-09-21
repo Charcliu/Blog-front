@@ -1,5 +1,6 @@
 const urls = {
-  hello: '/test/hello'
+  hello: '/test/hello',
+  insertBlog: '/blog/insertBlog'
 }
 
 export default urls
