@@ -21,7 +21,7 @@ export default {
       this.postRequestBody(urls.insertBlog, {
         title: this.title,
         content: this.content,
-        vistor_count: 100
+        vistor_count: 0
       }).then(res => {
         this.$message({
           showClose: true,

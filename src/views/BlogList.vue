@@ -17,6 +17,11 @@
 
 <script>
 import urls from '../axios/urls.js'
+import {
+  convertTimeStampToDate,
+  convertDateToLocalString
+} from '../utils/timeUtil.js'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'blogList',
@@ -28,15 +33,23 @@ export default {
   mounted () {
     let _this = this
     this.postRequestBody(urls.getAllBlogList, {}).then(res => {
+      res.data.forEach(element => {
+        element.time = convertDateToLocalString(
+          convertTimeStampToDate(element.time)
+        )
+      })
       _this.blogList = res.data
     })
   },
   methods: {
+    ...mapMutations(['SET_CURRENT_BLOG_DETAIL']),
     getDetail (item) {
       this.postRequestParam(urls.getBlogDeitailById, {
         blogId: item.id
       }).then(res => {
-        console.log(res)
+        let currentDetail = Object.assign({}, item)
+        currentDetail.content = res.data.content
+        this.SET_CURRENT_BLOG_DETAIL(currentDetail)
       })
     }
   }

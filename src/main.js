@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
-import store from './store/store'
+import store from './vuex/store'
 import './plugins/element.js'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
