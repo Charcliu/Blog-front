@@ -24,18 +24,17 @@ axios.interceptors.response.use(
   err => {
     if (err.response.status === 504 || err.response.status === 404) {
       Message.error({ message: '服务器被吃了⊙﹏⊙∥' })
-    } else if (err.response.status === 403) {
-      Message.error({ message: '权限不足,请联系管理员!' })
-    } else {
-      Message.error({ message: '未知错误!' })
+    } else if (err.response.status === 500) {
+      Message.error({ message: '服务器开小差了⊙﹏⊙∥' })
     }
-    return Promise.resolve(err)
+    return Promise.reject(err)
   }
 )
 
 let base = '/api'
 
-const postRequest = (url, params) => {
+// @RequestBody请求
+const postRequestBody = (url, params) => {
   return axios({
     method: 'post',
     url: `${base}${url}`,
@@ -47,6 +46,28 @@ const postRequest = (url, params) => {
   })
 }
 
+// @RequsetParam请求
+const postRequestParam = (url, params) => {
+  return axios({
+    method: 'post',
+    url: `${base}${url}`,
+    data: params,
+    transformRequest: [
+      function (data) {
+        let ret = ''
+        for (let it in data) {
+          ret +=
+            encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        }
+        return ret
+      }
+    ],
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}
+
 const getRequest = url => {
   return axios({
     method: 'get',
@@ -54,4 +75,4 @@ const getRequest = url => {
   })
 }
 
-export { postRequest, getRequest }
+export { getRequest, postRequestBody, postRequestParam }

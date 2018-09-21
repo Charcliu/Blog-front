@@ -10,20 +10,24 @@ import urls from '../axios/urls.js'
 
 export default {
   name: 'editMd',
-  data() {
+  data () {
     return {
       content: '',
       title: ''
     }
   },
   methods: {
-    saveBlog() {
-      this.postRequest(urls.insertBlog, {
+    saveBlog () {
+      this.postRequestBody(urls.insertBlog, {
         title: this.title,
         content: this.content,
         vistor_count: 100
       }).then(res => {
-        console.log(res)
+        this.$message({
+          showClose: true,
+          message: '保存成功',
+          type: 'success'
+        })
       })
     }
   }
@@ -32,4 +36,3 @@ export default {
 <style lang="sass" scoped>
 
 </style>
-

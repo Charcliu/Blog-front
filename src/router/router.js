@@ -20,6 +20,11 @@ export default new Router({
       path: '/editMd',
       name: 'editMd',
       component: () => import('../views/EditMd.vue')
+    },
+    {
+      path: '/blogList',
+      name: 'blogList',
+      component: () => import('../views/BlogList.vue')
     }
   ]
 })
