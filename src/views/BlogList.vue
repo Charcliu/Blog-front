@@ -1,16 +1,31 @@
 <template>
     <div class="blogList">
-        <div class="list" v-for="item in blogList" :key="item.id" @click="getDetail(item)">
-            <div class="header">
-                <h3>{{item.title}}</h3>
+        <div class="header">
+          <span>博客列表</span>
+        </div>
+        <div class="footer">
+          <UserInfo></UserInfo>
+          <div class="content">
+            <div class="list" v-for="item in blogList" :key="item.id" @click="getDetail(item)">
+              <div class="title">
+                  <h3>{{item.title}}</h3>
+              </div>
+              <div class="detail">
+                  <div class="vistor">
+                      <i class="el-icon-view"></i>
+                      <span>
+                        {{item.vistor_count}}
+                      </span>
+                  </div>
+                  <div class="time">
+                      <i class="el-icon-date"></i>
+                      <span>
+                        {{item.time}}
+                      </span>
+                  </div>
+              </div>
             </div>
-            <div class="footer">
-                <div class="vistor">
-                    <i class="el-icon-view"></i>{{item.vistor_count}}</div>
-                <div class="time">
-                    <i class="el-icon-date"></i>{{item.time}}
-                </div>
-            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -22,15 +37,16 @@ import {
   convertDateToLocalString
 } from '../utils/timeUtil.js'
 import { mapMutations } from 'vuex'
+import UserInfo from '@/components/UserInfo'
 
 export default {
   name: 'blogList',
-  data () {
+  data() {
     return {
       blogList: []
     }
   },
-  mounted () {
+  mounted() {
     let _this = this
     this.postRequestBody(urls.getAllBlogList, {}).then(res => {
       res.data.forEach(element => {
@@ -43,29 +59,60 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_CURRENT_BLOG_DETAIL']),
-    getDetail (item) {
+    getDetail(item) {
       this.postRequestParam(urls.getBlogDeitailById, {
         blogId: item.id
       }).then(res => {
         let currentDetail = Object.assign({}, item)
         currentDetail.content = res.data.content
         this.SET_CURRENT_BLOG_DETAIL(currentDetail)
+        this.$router.push('/blogDetail')
       })
     }
+  },
+  components: {
+    UserInfo
   }
 }
 </script>
 <style lang="scss" scoped>
-$content-width: 75rem;
-.blogList {
-  width: $content-width;
-  margin: auto;
-  .list {
-    cursor: pointer;
+$header-height: 5rem;
+
+.header {
+  background-color: #333;
+  color: white;
+  width: 100%;
+  font-size: 2em;
+  height: $header-height;
+  line-height: $header-height;
+  > span:first-child {
+    padding-left: 1.25rem;
   }
-  .footer {
-    display: flex;
-    flex-direction: row;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  width: 1000px;
+  margin: auto;
+  .content {
+    width: 100%;
+    .list {
+      background-color: #fff;
+      border: 1px solid #d1d5da;
+      border-radius: 3px;
+      margin: 10px 0px;
+      cursor: pointer;
+      padding: 10px;
+    }
+    .detail {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .time {
+        margin-left: 10px;
+      }
+    }
   }
 }
 </style>

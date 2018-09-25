@@ -1,7 +1,7 @@
 <template>
     <div class="editMd">
         <el-input v-model="title" placeholder="请输入标题"></el-input>
-        <mavon-editor v-model="content" :navigation="false" :ishljs="true" @save="saveBlog"/>
+        <mavon-editor v-model="content" :navigation="false" :ishljs="true" @save="saveBlog" @navigationToggle="test"/>
     </div>
 </template>
 
@@ -29,6 +29,9 @@ export default {
           type: 'success'
         })
       })
+    },
+    test () {
+      console.log('123')
     }
   }
 }
