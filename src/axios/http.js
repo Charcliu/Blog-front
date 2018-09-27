@@ -75,4 +75,8 @@ const getRequest = url => {
   })
 }
 
-export { getRequest, postRequestBody, postRequestParam }
+const multipleRequest = function (requsetArray, callback) {
+  axios.all(requsetArray).then(axios.spread(callback))
+}
+
+export { getRequest, postRequestBody, postRequestParam, multipleRequest }

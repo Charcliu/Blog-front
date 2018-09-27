@@ -25,7 +25,7 @@ export default new Router({
       component: () => import('../views/BlogList.vue')
     },
     {
-      path: '/blogDetail',
+      path: '/blogDetail/:blogId',
       name: 'blogDetail',
       component: () => import('../views/BlogDetail.vue')
     }

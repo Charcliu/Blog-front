@@ -16,35 +16,55 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import urls from '@/axios/urls.js'
 import Katelog from '@/utils/k-catelog.js'
 
 export default {
   name: 'blogDetail',
   data () {
-    return {}
-  },
-  mounted () {
-    setTimeout(() => {
-      Katelog({
-        contentEl: 'kCatelog',
-        catelogEl: 'catelogList',
-        linkClass: 'k-catelog-link',
-        linkActiveClass: 'k-catelog-link-active',
-        supplyTop: 20,
-        active: function (el) {
-          // console.log(el)
-        }
-      })
-    }, 1)
-  },
-  computed: {
-    ...mapGetters(['GET_CURRENT_BLOG_DETAIL']),
-    blogInfo () {
-      return this.GET_CURRENT_BLOG_DETAIL
+    return {
+      blogInfo: {
+        title: '',
+        content: ''
+      }
     }
   },
+  mounted () {
+    let _this = this
+    // 根据ID获取对应Blog详情
+    this.multipleRequest(
+      [this.getOneBlogListById(), this.getBlogDeitailById()],
+      function (oneBlogList, blogDetail) {
+        oneBlogList.data.content = blogDetail.data.content
+        _this.blogInfo = oneBlogList.data
+        // 加载左侧目录树
+        setTimeout(() => {
+          Katelog({
+            contentEl: 'kCatelog',
+            catelogEl: 'catelogList',
+            linkClass: 'k-catelog-link',
+            linkActiveClass: 'k-catelog-link-active',
+            supplyTop: 20,
+            active: function (el) {
+              // console.log(el)
+            }
+          })
+        }, 1)
+      }
+    )
+  },
+  computed: {},
   methods: {
+    getBlogDeitailById () {
+      return this.postRequestParam(urls.getBlogDeitailById, {
+        blogId: this.$route.params.blogId
+      })
+    },
+    getOneBlogListById () {
+      return this.postRequestParam(urls.getOneBlogListById, {
+        blogId: this.$route.params.blogId
+      })
+    },
     reBackToBlogList () {
       this.$router.push('/blogList')
     }

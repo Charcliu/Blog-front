@@ -6,7 +6,7 @@
         <div class="footer">
           <UserInfo></UserInfo>
           <div class="content">
-            <div class="list" v-for="item in blogList" :key="item.id" @click="getDetail(item)">
+            <div class="list" v-for="item in blogList" :key="item.id" @click="toDetail(item)">
               <div class="title">
                   <h3>{{item.title}}</h3>
               </div>
@@ -36,7 +36,6 @@ import {
   convertTimeStampToDate,
   convertDateToLocalString
 } from '../utils/timeUtil.js'
-import { mapMutations } from 'vuex'
 import UserInfo from '@/components/UserInfo'
 
 export default {
@@ -58,16 +57,8 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['SET_CURRENT_BLOG_DETAIL']),
-    getDetail (item) {
-      this.postRequestParam(urls.getBlogDeitailById, {
-        blogId: item.id
-      }).then(res => {
-        let currentDetail = Object.assign({}, item)
-        currentDetail.content = res.data.content
-        this.SET_CURRENT_BLOG_DETAIL(currentDetail)
-        this.$router.push('/blogDetail')
-      })
+    toDetail (item) {
+      this.$router.push({ name: 'blogDetail', params: { blogId: item.id } })
     }
   },
   components: {
