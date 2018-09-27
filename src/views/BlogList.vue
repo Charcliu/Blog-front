@@ -41,12 +41,12 @@ import UserInfo from '@/components/UserInfo'
 
 export default {
   name: 'blogList',
-  data() {
+  data () {
     return {
       blogList: []
     }
   },
-  mounted() {
+  mounted () {
     let _this = this
     this.postRequestBody(urls.getAllBlogList, {}).then(res => {
       res.data.forEach(element => {
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_CURRENT_BLOG_DETAIL']),
-    getDetail(item) {
+    getDetail (item) {
       this.postRequestParam(urls.getBlogDeitailById, {
         blogId: item.id
       }).then(res => {

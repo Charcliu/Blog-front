@@ -17,14 +17,14 @@
         </div>
         <div class="githubAddress">
             <i class="el-icon-star-on"></i>
-            <a href="https://github.com/Wofluently">https://github.com/Wofluently</a>
+            <a href="https://github.com/Wofluently" target="_blank">https://github.com/Wofluently</a>
         </div>
     </div>
 </template>
 <script>
 export default {
   name: 'UserInfo',
-  data() {
+  data () {
     return {}
   }
 }
@@ -73,5 +73,3 @@ export default {
   }
 }
 </style>
-
-

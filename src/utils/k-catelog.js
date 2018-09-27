@@ -1,14 +1,4 @@
-;(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(function() {
-      return factory
-    })
-  } else if (typeof exports === 'object') {
-    module.exports = factory
-  } else {
-    root.Katelog = factory
-  }
-})(window, function(opts) {
+function Katelog (opts) {
   let defaultOpts = {
     linkClass: 'k-catelog-link',
     linkActiveClass: 'k-catelog-link-active',
@@ -20,7 +10,7 @@
   if (typeof Object.assign !== 'function') {
     // Must be writable: true, enumerable: false, configurable: true
     Object.defineProperty(Object, 'assign', {
-      value: function assign(target, varArgs) {
+      value: function assign (target, varArgs) {
         // .length of function is 2
         'use strict'
         if (target == null) {
@@ -56,7 +46,7 @@
    * @param className 样式名
    * @returns {*}
    */
-  function hasClass(node, className) {
+  function hasClass (node, className) {
     if (node.className) {
       return node.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
     } else {
@@ -69,7 +59,7 @@
    * @param node  节点
    * @param className 样式名
    */
-  function addClass(node, className) {
+  function addClass (node, className) {
     if (!hasClass(node, className)) node.className += ' ' + className
   }
 
@@ -78,14 +68,14 @@
    * @param node  节点
    * @param className 将移除的样式
    */
-  function removeClass(node, className) {
+  function removeClass (node, className) {
     if (hasClass(node, className)) {
       var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
       node.className = node.className.replace(reg, ' ')
     }
   }
 
-  function arrayLikeToArray(al) {
+  function arrayLikeToArray (al) {
     return Array.prototype.slice.call(al)
   }
 
@@ -99,13 +89,13 @@
    * 获取目录树
    * @param catelogs
    */
-  function getCatelogsTree(catelogs) {
-    let title,
-      tagName,
-      tree = [],
-      treeItem = {},
-      parentItem = { id: -1 },
-      lastTreeItem = null
+  function getCatelogsTree (catelogs) {
+    let title
+    let tagName
+    let tree = []
+    let treeItem = {}
+    let parentItem = { id: -1 }
+    let lastTreeItem = null
 
     let id
 
@@ -140,7 +130,7 @@
    * @param lastTreeItem
    * @returns {*|Window}
    */
-  function findParent(currTreeItem, lastTreeItem) {
+  function findParent (currTreeItem, lastTreeItem) {
     let lastTreeParent = lastTreeItem.parent
     while (
       lastTreeParent &&
@@ -156,14 +146,14 @@
    * @param tagName
    * @returns {*}
    */
-  function getLevel(tagName) {
+  function getLevel (tagName) {
     return tagName ? tagName.slice(1) : 0
   }
 
   /**
    *  获取权重
    */
-  function getPriority(tagName) {
+  function getPriority (tagName) {
     let priority = 0
     if (tagName) {
       switch (tagName.toLowerCase()) {
@@ -196,11 +186,11 @@
    * @param type
    * @param fn
    */
-  function addEvent(obj, type, fn) {
+  function addEvent (obj, type, fn) {
     if (obj) {
       if (obj.attachEvent) {
         obj['e' + type + fn] = fn
-        obj[type + fn] = function() {
+        obj[type + fn] = function () {
           obj['e' + type + fn](window.event)
         }
         obj.attachEvent('on' + type, obj[type + fn])
@@ -214,9 +204,9 @@
    * 生成树
    * @param tree
    */
-  function generateHtmlTree(tree, _parent) {
-    let ul,
-      hasChild = false
+  function generateHtmlTree (tree, _parent) {
+    let ul
+    let hasChild = false
     if (tree) {
       ul = '<ul>'
       for (let i = 0; i < tree.length; i++) {
@@ -243,7 +233,7 @@
    * @param id
    * @returns {*}
    */
-  function getDataset(el, id) {
+  function getDataset (el, id) {
     if (el.dataset) {
       return el.dataset[id]
     } else {
@@ -251,7 +241,7 @@
     }
   }
 
-  function isEqual(node, node2) {
+  function isEqual (node, node2) {
     return (
       node &&
       node2 &&
@@ -265,7 +255,7 @@
    * 获取滚动条滚动的高度
    * @returns {number}
    */
-  function getScrollTop() {
+  function getScrollTop () {
     return document.documentElement.scrollTop || document.body.scrollTop
   }
 
@@ -296,8 +286,7 @@
           margin: 5px 0px;
         } 
         .k-catelog-link-active{
-          border-bottom: 2px solid #333;
-          margin-left: 5px;
+          border-bottom: 2px solid #888;
         }
     `
   let styleNode = document.createElement('style')
@@ -309,7 +298,7 @@
   }
   document.getElementsByTagName('head')[0].appendChild(styleNode)
 
-  addEvent($catelog, 'click', function(e) {
+  addEvent($catelog, 'click', function (e) {
     let target = e.target || e.srcElement
     let id = target.getAttribute('data-target')
     if (id) {
@@ -323,11 +312,11 @@
   /**
    *  设置选中的项
    */
-  function setActiveItem(id) {
+  function setActiveItem (id) {
     let catelogs = $catelog.querySelectorAll('[data-target]')
     catelogs = arrayLikeToArray(catelogs)
-    let activeTarget = null,
-      c
+    let activeTarget = null
+    let c
 
     for (let i = 0; i < catelogs.length; i++) {
       c = catelogs[i]
@@ -368,7 +357,7 @@
    * 滚动处理事件
    * @param e
    */
-  function resolveScroll(e) {
+  function resolveScroll (e) {
     // 鼠标滚动则触发，点击滚动不触发
     if (!clickToScroll) {
       let scrollTop = getScrollTop() + option.supplyTop
@@ -385,7 +374,7 @@
     clickToScroll = false
   }
 
-  function getElementTop(el) {
+  function getElementTop (el) {
     let top = el.offsetTop
     while ((el = el.offsetParent)) {
       top += el.offsetTop
@@ -394,4 +383,6 @@
   }
 
   addEvent(window, 'scroll', resolveScroll)
-})
+}
+
+export default Katelog

@@ -17,22 +17,22 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import '../utils/k-catelog.js'
+import Katelog from '@/utils/k-catelog.js'
 
 export default {
   name: 'blogDetail',
-  data() {
+  data () {
     return {}
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
-      new Katelog({
+      Katelog({
         contentEl: 'kCatelog',
         catelogEl: 'catelogList',
         linkClass: 'k-catelog-link',
         linkActiveClass: 'k-catelog-link-active',
         supplyTop: 20,
-        active: function(el) {
+        active: function (el) {
           // console.log(el)
         }
       })
@@ -40,12 +40,12 @@ export default {
   },
   computed: {
     ...mapGetters(['GET_CURRENT_BLOG_DETAIL']),
-    blogInfo() {
+    blogInfo () {
       return this.GET_CURRENT_BLOG_DETAIL
     }
   },
   methods: {
-    reBackToBlogList() {
+    reBackToBlogList () {
       this.$router.push('/blogList')
     }
   }
