@@ -122,9 +122,8 @@ $offset-height: 6.25rem;
 .editMd {
   width: 80%;
   margin: auto;
-  margin-top: $offset-height;
+  padding-top: $offset-height;
   .content {
-    margin: 20px 0px;
     .markdown-body {
       min-height: 500px;
     }

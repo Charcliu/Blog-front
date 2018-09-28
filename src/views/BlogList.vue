@@ -84,8 +84,7 @@ $header-height: 5rem;
 .footer {
   width: 80%;
   margin: auto;
-  margin-top: $header-height;
-  height: 100%;
+  padding-top: $header-height;
   .content {
     padding-bottom: 6.25rem;
     margin-top: 0.625rem;

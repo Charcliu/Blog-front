@@ -91,8 +91,7 @@ $header-height: 5rem;
 
 .content {
   position: relative;
-  margin-top: $header-height;
-  height: 100%;
+  padding-top: $header-height;
 }
 .header {
   display: flex;
