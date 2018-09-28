@@ -24,7 +24,7 @@ import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'editMd',
-  data() {
+  data () {
     return {
       content: '',
       title: '',
@@ -40,14 +40,14 @@ export default {
       labelPosition: 'right'
     }
   },
-  mounted() {
+  mounted () {
     let _this = this
     this.headerInfo.title = this.$route.params.blogId ? '编辑博客' : '添加博客'
     if (this.$route.params.blogId) {
       // 根据ID获取对应Blog详情
       this.multipleRequest(
         [this.getOneBlogListById(), this.getBlogDeitailById()],
-        function(oneBlogList, blogDetail) {
+        function (oneBlogList, blogDetail) {
           oneBlogList.data.content = blogDetail.data.content
           _this.blogInfo = oneBlogList.data
           _this.content = _this.blogInfo.content
@@ -57,30 +57,30 @@ export default {
     }
   },
   methods: {
-    saveBlog() {
+    saveBlog () {
       if (this.$route.params.blogId) {
         this.updateBlog()
       } else {
         this.insertBlog()
       }
     },
-    backToList() {
+    backToList () {
       this.$router.push('/blogList')
     },
-    callBack() {
+    callBack () {
       this.$router.push('/blogList')
     },
-    getBlogDeitailById() {
+    getBlogDeitailById () {
       return this.postRequestParam(urls.getBlogDeitailById, {
         blogId: this.$route.params.blogId
       })
     },
-    getOneBlogListById() {
+    getOneBlogListById () {
       return this.postRequestParam(urls.getOneBlogListById, {
         blogId: this.$route.params.blogId
       })
     },
-    insertBlog() {
+    insertBlog () {
       let _this = this
       this.postRequestBody(urls.insertBlog, {
         title: this.title,
@@ -95,7 +95,7 @@ export default {
         this.$router.push('/blogList')
       })
     },
-    updateBlog() {
+    updateBlog () {
       let _this = this
       this.postRequestBody(urls.updateBlog, {
         title: this.title,

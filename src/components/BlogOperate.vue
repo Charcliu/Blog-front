@@ -18,12 +18,12 @@ import { mapMutations } from 'vuex'
 
 export default {
   props: ['item'],
-  data() {
+  data () {
     return {}
   },
   methods: {
     ...mapMutations(['SET_BLOG_LIST']),
-    deleteBlog(item) {
+    deleteBlog (item) {
       let _this = this
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -40,7 +40,7 @@ export default {
           })
         })
     },
-    confirmDelBlog(item) {
+    confirmDelBlog (item) {
       let _this = this
       this.postRequestParam(urls.deleteBlogById, {
         blogId: item.id
@@ -60,7 +60,7 @@ export default {
         })
       })
     },
-    editBlog(item) {
+    editBlog (item) {
       this.$router.push({ name: 'editMd', params: { blogId: item.id } })
     }
   }

@@ -12,11 +12,11 @@
 export default {
   name: 'CommonHeader',
   props: ['headerInfo'],
-  data() {
+  data () {
     return {}
   },
   computed: {
-    header() {
+    header () {
       return this.headerInfo
     }
   },
