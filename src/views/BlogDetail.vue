@@ -1,9 +1,6 @@
 <template>
     <div class="blogDetail">
-      <div class="header">
-        <span>{{blogInfo.title}}</span>
-        <span @click="reBackToBlogList">返回列表</span>
-      </div>
+      <CommonHeader :header-info="headerInfo"></CommonHeader>
       <div class="content">
         <!-- 文章容器 -->
         <div id="kCatelog">
@@ -18,14 +15,21 @@
 <script>
 import urls from '@/axios/urls.js'
 import Katelog from '@/utils/k-catelog.js'
+import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'blogDetail',
   data () {
     return {
       blogInfo: {
-        title: '',
         content: ''
+      },
+      headerInfo: {
+        title: '',
+        reback: {
+          content: '返回列表',
+          callBack: this.callBack
+        }
       }
     }
   },
@@ -37,6 +41,7 @@ export default {
       function (oneBlogList, blogDetail) {
         oneBlogList.data.content = blogDetail.data.content
         _this.blogInfo = oneBlogList.data
+        _this.headerInfo.title = _this.blogInfo.title
         // 加载左侧目录树
         setTimeout(() => {
           Katelog({
@@ -65,9 +70,12 @@ export default {
         blogId: this.$route.params.blogId
       })
     },
-    reBackToBlogList () {
+    callBack () {
       this.$router.push('/blogList')
     }
+  },
+  components: {
+    CommonHeader
   }
 }
 </script>
@@ -76,9 +84,14 @@ export default {
 $catelog-width: 18.75rem;
 $header-height: 5rem;
 
+.blogDetail {
+  height: 100%;
+}
+
 .content {
   position: relative;
   margin-top: $header-height;
+  height: 100%;
 }
 .header {
   display: flex;
@@ -118,6 +131,7 @@ $header-height: 5rem;
 }
 #kCatelog {
   margin-left: $catelog-width;
+  height: 100%;
 }
 .k-catelog-link {
   color: red;

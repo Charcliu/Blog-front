@@ -34,13 +34,15 @@ export default {
   min-width: 250px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
     sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  position: sticky;
+  top: 5.625rem;
   div {
     width: 12.5rem;
+    text-align: left;
   }
   img {
     width: 12.5rem;
     border-radius: 10px;
-    margin-top: 10px;
   }
   .nickName {
     font-size: 26px;

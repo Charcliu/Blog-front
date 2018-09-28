@@ -15,7 +15,7 @@ export default new Router({
       component: () => import('../views/About.vue')
     },
     {
-      path: '/editMd',
+      path: '/editMd/:type',
       name: 'editMd',
       component: () => import('../views/EditMd.vue')
     },

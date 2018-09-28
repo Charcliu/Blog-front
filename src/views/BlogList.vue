@@ -1,31 +1,37 @@
 <template>
     <div class="blogList">
-        <div class="header">
-          <span>博客列表</span>
-        </div>
+        <CommonHeader :header-info="headerInfo"></CommonHeader>
         <div class="footer">
-          <UserInfo></UserInfo>
-          <div class="content">
-            <div class="list" v-for="item in blogList" :key="item.id" @click="toDetail(item)">
-              <div class="title">
-                  <h3>{{item.title}}</h3>
-              </div>
-              <div class="detail">
-                  <div class="vistor">
-                      <i class="el-icon-view"></i>
-                      <span>
-                        {{item.vistor_count}}
-                      </span>
+          <el-row :gutter="40" type="flex">
+            <el-col :xs="0" :sm="8" :md="8" :lg="7" :xl="8" align="right">
+              <UserInfo></UserInfo>
+            </el-col>
+            <el-col :xs="0" :sm="2" :md="2" :lg="1" :xl="2"></el-col>
+            <el-col :xs="24" :sm="14" :md="14" :lg="16" :xl="14" align="left">
+              <div class="content">
+                <div class="list" v-for="item in blogList" :key="item.id" @click="toDetail(item)">
+                  <div class="title">
+                      <h3>{{item.title}}</h3>
+                      <BlogOperate></BlogOperate>
                   </div>
-                  <div class="time">
-                      <i class="el-icon-date"></i>
-                      <span>
-                        {{item.time}}
-                      </span>
+                  <div class="detail">
+                      <div class="vistor">
+                          <i class="el-icon-view"></i>
+                          <span>
+                            {{item.vistor_count}}
+                          </span>
+                      </div>
+                      <div class="time">
+                          <i class="el-icon-date"></i>
+                          <span>
+                            {{item.time}}
+                          </span>
+                      </div>
                   </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </el-col>
+          </el-row>
         </div>
     </div>
 </template>
@@ -37,15 +43,21 @@ import {
   convertDateToLocalString
 } from '../utils/timeUtil.js'
 import UserInfo from '@/components/UserInfo'
+import CommonHeader from '@/components/CommonHeader'
+import BlogOperate from '@/components/BlogOperate'
 
 export default {
   name: 'blogList',
-  data () {
+  data() {
     return {
-      blogList: []
+      blogList: [],
+      headerInfo: {
+        title: '博客列表',
+        reback: null
+      }
     }
   },
-  mounted () {
+  mounted() {
     let _this = this
     this.postRequestBody(urls.getAllBlogList, {}).then(res => {
       res.data.forEach(element => {
@@ -57,53 +69,49 @@ export default {
     })
   },
   methods: {
-    toDetail (item) {
+    toDetail(item) {
       this.$router.push({ name: 'blogDetail', params: { blogId: item.id } })
     }
   },
   components: {
-    UserInfo
+    UserInfo,
+    CommonHeader,
+    BlogOperate
   }
 }
 </script>
 <style lang="scss" scoped>
 $header-height: 5rem;
 
-.header {
-  background-color: #333;
-  color: white;
-  width: 100%;
-  font-size: 2em;
-  height: $header-height;
-  line-height: $header-height;
-  > span:first-child {
-    padding-left: 1.25rem;
-  }
+.blogList {
+  height: 100%;
 }
 
 .footer {
-  display: flex;
-  flex-direction: row;
-  width: 1000px;
+  width: 80%;
   margin: auto;
+  margin-top: $header-height;
+  height: 100%;
   .content {
-    width: 100%;
+    padding-bottom: 6.25rem;
+    margin-top: 0.625rem;
     .list {
-      background-color: #fff;
-      border: 1px solid #d1d5da;
-      border-radius: 3px;
-      margin: 10px 0px;
+      border: 1px solid #e8e8e8;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 10px;
       cursor: pointer;
-      padding: 10px;
-    }
-    .detail {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      .time {
-        margin-left: 10px;
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
       }
     }
+  }
+  .detail {
+    display: flex;
+    flex-direction: row;
   }
 }
 </style>
