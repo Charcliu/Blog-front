@@ -58,19 +58,11 @@ export default {
   },
   methods: {
     saveBlog() {
-      let _this = this
-      this.postRequestBody(urls.insertBlog, {
-        title: this.title,
-        content: this.content,
-        vistor_count: 0
-      }).then(res => {
-        _this.$message({
-          showClose: true,
-          message: '保存成功',
-          type: 'success'
-        })
-        this.$router.push('/blogList')
-      })
+      if (this.$route.params.blogId) {
+        this.updateBlog()
+      } else {
+        this.insertBlog()
+      }
     },
     backToList() {
       this.$router.push('/blogList')
@@ -86,6 +78,36 @@ export default {
     getOneBlogListById() {
       return this.postRequestParam(urls.getOneBlogListById, {
         blogId: this.$route.params.blogId
+      })
+    },
+    insertBlog() {
+      let _this = this
+      this.postRequestBody(urls.insertBlog, {
+        title: this.title,
+        content: this.content,
+        vistor_count: 0
+      }).then(res => {
+        _this.$message({
+          showClose: true,
+          message: '保存成功',
+          type: 'success'
+        })
+        this.$router.push('/blogList')
+      })
+    },
+    updateBlog() {
+      let _this = this
+      this.postRequestBody(urls.updateBlog, {
+        title: this.title,
+        content: this.content,
+        id: this.blogInfo.id
+      }).then(res => {
+        _this.$message({
+          showClose: true,
+          message: '修改成功',
+          type: 'success'
+        })
+        this.$router.push('/blogList')
       })
     }
   },
