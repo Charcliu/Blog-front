@@ -9,7 +9,7 @@
             <el-col :xs="0" :sm="2" :md="2" :lg="1" :xl="2"></el-col>
             <el-col :xs="24" :sm="14" :md="14" :lg="16" :xl="14" align="left">
               <div class="content">
-                <div class="list" v-for="item in blogList" :key="item.id" @click="toDetail(item)">
+                <div class="list" v-for="item in blogList" :key="item.id">
                   <BlogItem :item="item"></BlogItem>
                 </div>
               </div>
@@ -28,19 +28,19 @@ import {
 import UserInfo from '@/components/UserInfo'
 import CommonHeader from '@/components/CommonHeader'
 import BlogItem from '@/components/BlogItem'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'blogList',
-  data() {
+  data () {
     return {
-      blogList: [],
       headerInfo: {
         title: '博客列表',
         reback: null
       }
     }
   },
-  mounted() {
+  mounted () {
     let _this = this
     this.postRequestBody(urls.getAllBlogList, {}).then(res => {
       res.data.forEach(element => {
@@ -48,12 +48,16 @@ export default {
           convertTimeStampToDate(element.time)
         )
       })
-      _this.blogList = res.data
+      _this.SET_BLOG_LIST(res.data)
     })
   },
   methods: {
-    toDetail(item) {
-      this.$router.push({ name: 'blogDetail', params: { blogId: item.id } })
+    ...mapMutations(['SET_BLOG_LIST'])
+  },
+  computed: {
+    ...mapGetters(['GET_BLOG_LIST']),
+    blogList () {
+      return this.GET_BLOG_LIST
     }
   },
   components: {
@@ -83,7 +87,6 @@ $header-height: 5rem;
       border-radius: 5px;
       padding: 20px;
       margin-bottom: 10px;
-      cursor: pointer;
     }
   }
 }

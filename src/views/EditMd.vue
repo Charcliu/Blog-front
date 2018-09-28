@@ -24,7 +24,7 @@ import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'editMd',
-  data() {
+  data () {
     return {
       content: '',
       title: '',
@@ -35,12 +35,12 @@ export default {
       labelPosition: 'right'
     }
   },
-  mounted() {
+  mounted () {
     this.headerInfo.title =
       this.$route.params.type === 'add' ? '添加博客' : '编辑博客'
   },
   methods: {
-    saveBlog() {
+    saveBlog () {
       let _this = this
       this.postRequestBody(urls.insertBlog, {
         title: this.title,
@@ -55,7 +55,7 @@ export default {
         this.$router.push('/blogList')
       })
     },
-    backToList() {
+    backToList () {
       this.$router.push('/blogList')
     }
   },

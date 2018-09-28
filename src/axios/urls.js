@@ -3,7 +3,8 @@ const urls = {
   insertBlog: '/blog/insertBlog',
   getAllBlogList: '/blog/getAllBlogList',
   getBlogDeitailById: '/blog/getBlogDeitailById',
-  getOneBlogListById: '/blog/getOneBlogListById'
+  getOneBlogListById: '/blog/getOneBlogListById',
+  deleteBlogById: '/blog/deleteBlogById'
 }
 
 export default urls

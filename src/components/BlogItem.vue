@@ -1,8 +1,8 @@
 <template>
-    <div> 
+    <div>
         <div class="title">
-            <h3>{{item.title}}</h3>
-            <BlogOperate></BlogOperate>
+            <h3 @click="toDetail(item)">{{item.title}}</h3>
+            <BlogOperate :item="item"></BlogOperate>
         </div>
         <div class="detail">
             <div class="vistor">
@@ -25,8 +25,13 @@ import BlogOperate from '@/components/BlogOperate'
 
 export default {
   props: ['item'],
-  data() {
+  data () {
     return {}
+  },
+  methods: {
+    toDetail (item) {
+      this.$router.push({ name: 'blogDetail', params: { blogId: item.id } })
+    }
   },
   components: {
     BlogOperate
@@ -34,6 +39,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+h3 {
+  cursor: pointer;
+}
+
 .title {
   display: flex;
   flex-direction: row;
@@ -50,4 +59,3 @@ export default {
   }
 }
 </style>
-
