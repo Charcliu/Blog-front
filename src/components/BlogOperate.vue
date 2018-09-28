@@ -1,6 +1,6 @@
 <template>
     <div class="operate">
-        <span title="编辑">
+        <span title="编辑" @click="editBlog(item)">
             <i class="el-icon-edit"></i>
         </span>
         <span title="删除" @click="deleteBlog(item)">
@@ -59,6 +59,9 @@ export default {
           _this.SET_BLOG_LIST(res.data)
         })
       })
+    },
+    editBlog(item) {
+      this.$router.push({ name: 'editMd', params: { blogId: item.id } })
     }
   }
 }

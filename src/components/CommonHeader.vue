@@ -1,8 +1,10 @@
 <template>
     <div class="header">
         <span class="title">{{header.title}}</span>
-        <span @click="header.reback.callBack" v-if="header.reback" class="rebackBtn">
-          {{header.reback.content}}
+        <span @click="header.rightBtn.callBack" v-if="header.rightBtn" class="rightBtn">
+          <i class="el-icon-edit" v-if="header.rightBtn.type === 0"></i>
+          <i class="el-icon-back" v-if="header.rightBtn.type === 1"></i>
+          <span>{{header.rightBtn.content}}</span>
         </span>
     </div>
 </template>
@@ -10,11 +12,11 @@
 export default {
   name: 'CommonHeader',
   props: ['headerInfo'],
-  data () {
+  data() {
     return {}
   },
   computed: {
-    header () {
+    header() {
       return this.headerInfo
     }
   },
@@ -42,15 +44,9 @@ $header-height: 5rem;
   .title {
     padding-left: 1.25rem;
   }
-  .rebackBtn {
-    border: 1px solid white;
-    font-size: 12px;
-    height: 30px;
-    line-height: 30px;
+  .rightBtn {
+    padding-right: 1.25rem;
     cursor: pointer;
-    padding: 0px 10px;
-    border-radius: 5px;
-    margin-right: 20px;
   }
 }
 </style>

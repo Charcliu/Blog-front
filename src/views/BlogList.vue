@@ -32,15 +32,19 @@ import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'blogList',
-  data () {
+  data() {
     return {
       headerInfo: {
         title: '博客列表',
-        reback: null
+        rightBtn: {
+          content: '写博客',
+          callBack: this.writeBlog,
+          type: 0
+        }
       }
     }
   },
-  mounted () {
+  mounted() {
     let _this = this
     this.postRequestBody(urls.getAllBlogList, {}).then(res => {
       res.data.forEach(element => {
@@ -52,11 +56,14 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['SET_BLOG_LIST'])
+    ...mapMutations(['SET_BLOG_LIST']),
+    writeBlog() {
+      this.$router.push({ name: 'editMd', params: { blogId: 0 } })
+    }
   },
   computed: {
     ...mapGetters(['GET_BLOG_LIST']),
-    blogList () {
+    blogList() {
       return this.GET_BLOG_LIST
     }
   },

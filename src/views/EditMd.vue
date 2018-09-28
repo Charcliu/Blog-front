@@ -24,23 +24,40 @@ import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'editMd',
-  data () {
+  data() {
     return {
       content: '',
       title: '',
+      blogInfo: null,
       headerInfo: {
         title: '',
-        reback: null
+        rightBtn: {
+          content: '返回列表',
+          callBack: this.callBack,
+          type: 1
+        }
       },
       labelPosition: 'right'
     }
   },
-  mounted () {
-    this.headerInfo.title =
-      this.$route.params.type === 'add' ? '添加博客' : '编辑博客'
+  mounted() {
+    let _this = this
+    this.headerInfo.title = this.$route.params.blogId ? '编辑博客' : '添加博客'
+    if (this.$route.params.blogId) {
+      // 根据ID获取对应Blog详情
+      this.multipleRequest(
+        [this.getOneBlogListById(), this.getBlogDeitailById()],
+        function(oneBlogList, blogDetail) {
+          oneBlogList.data.content = blogDetail.data.content
+          _this.blogInfo = oneBlogList.data
+          _this.content = _this.blogInfo.content
+          _this.title = _this.blogInfo.title
+        }
+      )
+    }
   },
   methods: {
-    saveBlog () {
+    saveBlog() {
       let _this = this
       this.postRequestBody(urls.insertBlog, {
         title: this.title,
@@ -55,8 +72,21 @@ export default {
         this.$router.push('/blogList')
       })
     },
-    backToList () {
+    backToList() {
       this.$router.push('/blogList')
+    },
+    callBack() {
+      this.$router.push('/blogList')
+    },
+    getBlogDeitailById() {
+      return this.postRequestParam(urls.getBlogDeitailById, {
+        blogId: this.$route.params.blogId
+      })
+    },
+    getOneBlogListById() {
+      return this.postRequestParam(urls.getOneBlogListById, {
+        blogId: this.$route.params.blogId
+      })
     }
   },
   components: {

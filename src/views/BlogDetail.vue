@@ -19,26 +19,27 @@ import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'blogDetail',
-  data () {
+  data() {
     return {
       blogInfo: {
         content: ''
       },
       headerInfo: {
         title: '',
-        reback: {
+        rightBtn: {
           content: '返回列表',
-          callBack: this.callBack
+          callBack: this.callBack,
+          type: 1
         }
       }
     }
   },
-  mounted () {
+  mounted() {
     let _this = this
     // 根据ID获取对应Blog详情
     this.multipleRequest(
       [this.getOneBlogListById(), this.getBlogDeitailById()],
-      function (oneBlogList, blogDetail) {
+      function(oneBlogList, blogDetail) {
         oneBlogList.data.content = blogDetail.data.content
         _this.blogInfo = oneBlogList.data
         _this.headerInfo.title = _this.blogInfo.title
@@ -50,7 +51,7 @@ export default {
             linkClass: 'k-catelog-link',
             linkActiveClass: 'k-catelog-link-active',
             supplyTop: 20,
-            active: function (el) {
+            active: function(el) {
               // console.log(el)
             }
           })
@@ -60,17 +61,17 @@ export default {
   },
   computed: {},
   methods: {
-    getBlogDeitailById () {
+    getBlogDeitailById() {
       return this.postRequestParam(urls.getBlogDeitailById, {
         blogId: this.$route.params.blogId
       })
     },
-    getOneBlogListById () {
+    getOneBlogListById() {
       return this.postRequestParam(urls.getOneBlogListById, {
         blogId: this.$route.params.blogId
       })
     },
-    callBack () {
+    callBack() {
       this.$router.push('/blogList')
     }
   },
