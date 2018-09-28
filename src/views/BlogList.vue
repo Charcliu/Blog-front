@@ -10,24 +10,7 @@
             <el-col :xs="24" :sm="14" :md="14" :lg="16" :xl="14" align="left">
               <div class="content">
                 <div class="list" v-for="item in blogList" :key="item.id" @click="toDetail(item)">
-                  <div class="title">
-                      <h3>{{item.title}}</h3>
-                      <BlogOperate></BlogOperate>
-                  </div>
-                  <div class="detail">
-                      <div class="vistor">
-                          <i class="el-icon-view"></i>
-                          <span>
-                            {{item.vistor_count}}
-                          </span>
-                      </div>
-                      <div class="time">
-                          <i class="el-icon-date"></i>
-                          <span>
-                            {{item.time}}
-                          </span>
-                      </div>
-                  </div>
+                  <BlogItem :item="item"></BlogItem>
                 </div>
               </div>
             </el-col>
@@ -44,7 +27,7 @@ import {
 } from '../utils/timeUtil.js'
 import UserInfo from '@/components/UserInfo'
 import CommonHeader from '@/components/CommonHeader'
-import BlogOperate from '@/components/BlogOperate'
+import BlogItem from '@/components/BlogItem'
 
 export default {
   name: 'blogList',
@@ -76,7 +59,7 @@ export default {
   components: {
     UserInfo,
     CommonHeader,
-    BlogOperate
+    BlogItem
   }
 }
 </script>
@@ -101,17 +84,7 @@ $header-height: 5rem;
       padding: 20px;
       margin-bottom: 10px;
       cursor: pointer;
-      .title {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
     }
-  }
-  .detail {
-    display: flex;
-    flex-direction: row;
   }
 }
 </style>
