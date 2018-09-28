@@ -16,6 +16,8 @@
 import urls from '@/axios/urls.js'
 import Katelog from '@/utils/k-catelog.js'
 import CommonHeader from '@/components/CommonHeader'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-dark.css'
 
 export default {
   name: 'blogDetail',
@@ -55,6 +57,7 @@ export default {
               // console.log(el)
             }
           })
+          _this.highlightCode()
         }, 1)
       }
     )
@@ -73,6 +76,12 @@ export default {
     },
     callBack() {
       this.$router.push('/blogList')
+    },
+    highlightCode(){
+      const preEl = document.querySelectorAll('pre')
+      preEl.forEach((el) => {
+        hljs.highlightBlock(el)
+      })
     }
   },
   components: {
