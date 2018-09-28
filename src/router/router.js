@@ -29,5 +29,13 @@ export default new Router({
       name: 'blogDetail',
       component: () => import('../views/BlogDetail.vue')
     }
-  ]
+  ],
+  // 滚动行为
+  scrollBehavior(to, from, savedPosition) {
+    // return 期望滚动到哪个的位置
+    return {
+      x: 0,
+      y: 0
+    }
+  }
 })

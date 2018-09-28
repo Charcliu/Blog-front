@@ -131,7 +131,7 @@ $header-height: 5rem;
 }
 #kCatelog {
   margin-left: $catelog-width;
-  height: 100%;
+  // height: 100%;
 }
 .k-catelog-link {
   color: red;
