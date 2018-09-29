@@ -7,7 +7,7 @@
               <el-input v-model="title" placeholder="请输入标题"></el-input>
             </el-form-item>
             <el-form-item label="内容">
-              <mavon-editor v-model="content" :navigation="false" :ishljs="true" @save="saveBlog"/>
+              <mavon-editor v-model="content" :navigation="false" :ishljs="true" :codeStyle="codeStyle" @save="saveBlog"/>
             </el-form-item>
             <el-form-item>
               <el-button type="info" @click="saveBlog">保存编辑</el-button>
@@ -26,6 +26,7 @@ export default {
   name: 'editMd',
   data () {
     return {
+      codeStyle: 'atom-one-dark',
       content: '',
       title: '',
       blogInfo: null,
