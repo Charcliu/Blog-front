@@ -5,7 +5,8 @@ const urls = {
   getBlogDeitailById: '/blog/getBlogDeitailById',
   getOneBlogListById: '/blog/getOneBlogListById',
   deleteBlogById: '/blog/deleteBlogById',
-  updateBlog: '/blog/updateBlog'
+  updateBlog: '/blog/updateBlog',
+  addVistorCount: '/blog/addVistorCount'
 }
 
 export default urls

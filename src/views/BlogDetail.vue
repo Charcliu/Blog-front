@@ -19,7 +19,7 @@ import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'blogDetail',
-  data () {
+  data() {
     return {
       codeStyle: 'atom-one-dark',
       blogInfo: {
@@ -35,43 +35,51 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     let _this = this
     // 根据ID获取对应Blog详情
     this.multipleRequest(
       [this.getOneBlogListById(), this.getBlogDeitailById()],
-      function (oneBlogList, blogDetail) {
+      function(oneBlogList, blogDetail) {
         oneBlogList.data.content = blogDetail.data.content
         _this.blogInfo = oneBlogList.data
         _this.headerInfo.title = _this.blogInfo.title
         // 加载左侧目录树
         _this.$nextTick(() => {
-          Katelog({
-            contentEl: 'kCatelog',
-            catelogEl: 'catelogList',
-            linkClass: 'k-catelog-link',
-            linkActiveClass: 'k-catelog-link-active',
-            supplyTop: 20,
-            active: function (el) {}
-          })
+          _this.loadLeftTree()
+          _this.addVistor()
         })
       }
     )
   },
-  computed: {},
   methods: {
-    getBlogDeitailById () {
+    getBlogDeitailById() {
       return this.postRequestParam(urls.getBlogDeitailById, {
         blogId: this.$route.params.blogId
       })
     },
-    getOneBlogListById () {
+    getOneBlogListById() {
       return this.postRequestParam(urls.getOneBlogListById, {
         blogId: this.$route.params.blogId
       })
     },
-    callBack () {
+    callBack() {
       this.$router.push('/blogList')
+    },
+    loadLeftTree() {
+      Katelog({
+        contentEl: 'kCatelog',
+        catelogEl: 'catelogList',
+        linkClass: 'k-catelog-link',
+        linkActiveClass: 'k-catelog-link-active',
+        supplyTop: 20,
+        active: function(el) {}
+      })
+    },
+    addVistor() {
+      this.postRequestParam(urls.addVistorCount, {
+        blogId: this.blogInfo.id
+      })
     }
   },
   components: {
