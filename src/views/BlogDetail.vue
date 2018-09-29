@@ -4,7 +4,7 @@
       <div class="content">
         <!-- 文章容器 -->
         <div id="kCatelog">
-          <mavon-editor v-model="blogInfo.content" defaultOpen="preview" :toolbarsFlag="false" :subfield="false" :preview="true"/>
+          <mavon-editor v-model="blogInfo.content" defaultOpen="preview" :toolbarsFlag="false" :subfield="false" :preview="true" :ishljs="true" :codeStyle="codeStyle"/>
         </div>
         <!-- 目录容器 -->
         <div class="k-catelog-list" id="catelogList"></div>
@@ -16,13 +16,12 @@
 import urls from '@/axios/urls.js'
 import Katelog from '@/utils/k-catelog.js'
 import CommonHeader from '@/components/CommonHeader'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/atom-one-dark.css'
 
 export default {
   name: 'blogDetail',
-  data () {
+  data() {
     return {
+      codeStyle: 'atom-one-dark',
       blogInfo: {
         content: ''
       },
@@ -36,52 +35,43 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     let _this = this
     // 根据ID获取对应Blog详情
     this.multipleRequest(
       [this.getOneBlogListById(), this.getBlogDeitailById()],
-      function (oneBlogList, blogDetail) {
+      function(oneBlogList, blogDetail) {
         oneBlogList.data.content = blogDetail.data.content
         _this.blogInfo = oneBlogList.data
         _this.headerInfo.title = _this.blogInfo.title
         // 加载左侧目录树
-        setTimeout(() => {
+        _this.$nextTick(() => {
           Katelog({
             contentEl: 'kCatelog',
             catelogEl: 'catelogList',
             linkClass: 'k-catelog-link',
             linkActiveClass: 'k-catelog-link-active',
             supplyTop: 20,
-            active: function (el) {
-              // console.log(el)
-            }
+            active: function(el) {}
           })
-          _this.highlightCode()
-        }, 1)
+        })
       }
     )
   },
   computed: {},
   methods: {
-    getBlogDeitailById () {
+    getBlogDeitailById() {
       return this.postRequestParam(urls.getBlogDeitailById, {
         blogId: this.$route.params.blogId
       })
     },
-    getOneBlogListById () {
+    getOneBlogListById() {
       return this.postRequestParam(urls.getOneBlogListById, {
         blogId: this.$route.params.blogId
       })
     },
-    callBack () {
+    callBack() {
       this.$router.push('/blogList')
-    },
-    highlightCode () {
-      const preEl = document.querySelectorAll('pre')
-      preEl.forEach((el) => {
-        hljs.highlightBlock(el)
-      })
     }
   },
   components: {
