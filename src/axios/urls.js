@@ -6,7 +6,8 @@ const urls = {
   getOneBlogListById: '/blog/getOneBlogListById',
   deleteBlogById: '/blog/deleteBlogById',
   updateBlog: '/blog/updateBlog',
-  addVistorCount: '/blog/addVistorCount'
+  addVistorCount: '/blog/addVistorCount',
+  blogLogin: '/blog/login'
 }
 
 export default urls

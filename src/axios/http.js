@@ -24,6 +24,9 @@ axios.interceptors.response.use(
   err => {
     if (err.response.status === 504 || err.response.status === 404) {
       Message.error({ message: '服务器被吃了⊙﹏⊙∥' })
+    } else if (err.response.status === 333) {
+      Message.error({ message: '登录信息失效⊙﹏⊙∥' })
+      window.location.href = 'http://65.49.209.221'
     } else if (err.response.status === 500) {
       Message.error({ message: '服务器开小差了⊙﹏⊙∥' })
     }

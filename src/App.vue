@@ -12,7 +12,10 @@ export default {
     return {}
   },
   mounted () {
-    this.getRequest(urls.hello).then(res => {
+    this.postRequestParam(urls.blogLogin, {
+      username: 'ChangLau',
+      password: '123456'
+    }).then(res => {
       console.log(res)
     })
   }
