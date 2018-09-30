@@ -117,16 +117,4 @@ $header-height: 5rem;
   position: sticky;
   top: $header-height;
 }
-
-#catelogList {
-  // position: fixed;
-  // left: 0px;
-  // top: $header-height;
-  // width: $catelog-width;
-  // padding: 10px 0px;
-}
-#kCatelog {
-  // margin-left: $catelog-width;
-  // height: 100%;
-}
 </style>
