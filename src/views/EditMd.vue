@@ -121,7 +121,7 @@ export default {
 $offset-height: 6.25rem;
 
 .editMd {
-  width: 80%;
+  width: 90%;
   margin: auto;
   padding-top: $offset-height;
   .content {

@@ -2,12 +2,24 @@
     <div class="blogDetail">
       <CommonHeader :header-info="headerInfo"></CommonHeader>
       <div class="content">
+        <el-row>
+            <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" class="leftTree">
+              <!-- 目录容器 -->
+              <div class="k-catelog-list" id="catelogList"></div>
+            </el-col>
+            <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
+              <!-- 文章容器 -->
+              <div id="kCatelog">
+                <mavon-editor v-model="blogInfo.content" defaultOpen="preview" :toolbarsFlag="false" :subfield="false" :preview="true" :ishljs="true" :codeStyle="codeStyle"/>
+              </div>
+            </el-col>
+        </el-row>
         <!-- 文章容器 -->
-        <div id="kCatelog">
+        <!-- <div id="kCatelog">
           <mavon-editor v-model="blogInfo.content" defaultOpen="preview" :toolbarsFlag="false" :subfield="false" :preview="true" :ishljs="true" :codeStyle="codeStyle"/>
-        </div>
+        </div> -->
         <!-- 目录容器 -->
-        <div class="k-catelog-list" id="catelogList"></div>
+        <!-- <div class="k-catelog-list" id="catelogList"></div> -->
       </div>
     </div>
 </template>
@@ -19,7 +31,7 @@ import CommonHeader from '@/components/CommonHeader'
 
 export default {
   name: 'blogDetail',
-  data() {
+  data () {
     return {
       codeStyle: 'atom-one-dark',
       blogInfo: {
@@ -35,12 +47,12 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     let _this = this
     // 根据ID获取对应Blog详情
     this.multipleRequest(
       [this.getOneBlogListById(), this.getBlogDeitailById()],
-      function(oneBlogList, blogDetail) {
+      function (oneBlogList, blogDetail) {
         oneBlogList.data.content = blogDetail.data.content
         _this.blogInfo = oneBlogList.data
         _this.headerInfo.title = _this.blogInfo.title
@@ -53,30 +65,30 @@ export default {
     )
   },
   methods: {
-    getBlogDeitailById() {
+    getBlogDeitailById () {
       return this.postRequestParam(urls.getBlogDeitailById, {
         blogId: this.$route.params.blogId
       })
     },
-    getOneBlogListById() {
+    getOneBlogListById () {
       return this.postRequestParam(urls.getOneBlogListById, {
         blogId: this.$route.params.blogId
       })
     },
-    callBack() {
+    callBack () {
       this.$router.push('/blogList')
     },
-    loadLeftTree() {
+    loadLeftTree () {
       Katelog({
         contentEl: 'kCatelog',
         catelogEl: 'catelogList',
         linkClass: 'k-catelog-link',
         linkActiveClass: 'k-catelog-link-active',
         supplyTop: 20,
-        active: function(el) {}
+        active: function (el) {}
       })
     },
-    addVistor() {
+    addVistor () {
       this.postRequestParam(urls.addVistorCount, {
         blogId: this.blogInfo.id
       })
@@ -100,50 +112,21 @@ $header-height: 5rem;
   position: relative;
   padding-top: $header-height;
 }
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  z-index: 99999;
-  font-size: 2em;
-  height: $header-height;
-  line-height: $header-height;
-  > span:first-child {
-    padding-left: 1.25rem;
-  }
-  > span:last-child {
-    border: 1px solid white;
-    font-size: 12px;
-    height: 30px;
-    line-height: 30px;
-    cursor: pointer;
-    padding: 0px 10px;
-    border-radius: 5px;
-    margin-right: 20px;
-  }
-}
-#catelogList {
-  position: fixed;
-  left: 0px;
+
+.leftTree {
+  position: sticky;
   top: $header-height;
-  width: $catelog-width;
-  padding: 10px 0px;
+}
+
+#catelogList {
+  // position: fixed;
+  // left: 0px;
+  // top: $header-height;
+  // width: $catelog-width;
+  // padding: 10px 0px;
 }
 #kCatelog {
-  margin-left: $catelog-width;
+  // margin-left: $catelog-width;
   // height: 100%;
-}
-.k-catelog-link {
-  color: red;
-}
-.k-catelog-link-active {
-  color: red;
 }
 </style>

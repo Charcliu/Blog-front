@@ -48,6 +48,9 @@ h3 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  h3{
+    width: 80%;
+  }
 }
 
 .detail {

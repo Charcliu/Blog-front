@@ -41,11 +41,17 @@ $header-height: 5rem;
   font-size: 2em;
   height: $header-height;
   line-height: $header-height;
+  > span {
+    width: 40%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
   .title {
     padding-left: 1.25rem;
   }
   .rightBtn {
     padding-right: 1.25rem;
+    text-align: right;
     cursor: pointer;
   }
 }
