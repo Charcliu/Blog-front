@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: () => import('../views/BlogList.vue')
+      component: () => import('../views/Login.vue')
     },
     {
       path: '/about',
