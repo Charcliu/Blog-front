@@ -21,14 +21,14 @@ import urls from '@/axios/urls.js'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       username: '',
       password: ''
     }
   },
   methods: {
-    login() {
+    login () {
       let _this = this
       this.postRequestParam(urls.blogLogin, {
         username: _this.username,
@@ -110,5 +110,3 @@ h3 {
   }
 }
 </style>
-
-
