@@ -38,7 +38,7 @@ $header-height: 5rem;
   left: 0px;
   width: 100%;
   z-index: 1501;
-  font-size: 2em;
+  font-size: 2rem;
   height: $header-height;
   line-height: $header-height;
   > span {

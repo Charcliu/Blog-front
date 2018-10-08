@@ -5,20 +5,11 @@
 </template>
 
 <script>
-import urls from './axios/urls.js'
-
 export default {
-  data () {
+  data() {
     return {}
   },
-  mounted () {
-    this.postRequestParam(urls.blogLogin, {
-      username: 'ChangLau',
-      password: '123456'
-    }).then(res => {
-      console.log(res)
-    })
-  }
+  mounted() {}
 }
 </script>
 
@@ -26,6 +17,12 @@ export default {
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: #2c3e50;
+  height: 100%;
+}
+html,
+body {
+  margin: 0px;
+  padding: 0px;
   height: 100%;
 }
 </style>

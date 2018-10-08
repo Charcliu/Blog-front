@@ -28,6 +28,11 @@ export default new Router({
       path: '/blogDetail/:blogId',
       name: 'blogDetail',
       component: () => import('../views/BlogDetail.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/Login.vue')
     }
   ],
   // 滚动行为
