@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import axios from 'axios'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -44,3 +45,21 @@ export default new Router({
     }
   }
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'login') {
+    next()
+  } else {
+    axios
+      .get('/api/blog/test')
+      .then(res => {
+        next()
+      })
+      .catch(err => {
+        console.log(err)
+        next({ path: '/login' })
+      })
+  }
+})
+
+export default router
