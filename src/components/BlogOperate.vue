@@ -50,7 +50,7 @@ export default {
           message: '删除成功',
           type: 'success'
         })
-        _this.postRequestBody(urls.getAllBlogList, {}).then(res => {
+        _this.postRequestBody(urls.getMyBlog, {}).then(res => {
           res.data.forEach(element => {
             element.time = convertDateToLocalString(
               convertTimeStampToDate(element.time)

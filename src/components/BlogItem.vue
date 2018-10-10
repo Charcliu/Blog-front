@@ -2,7 +2,7 @@
     <div>
         <div class="title">
             <h3 @click="toDetail(item)">{{item.title}}</h3>
-            <BlogOperate :item="item"></BlogOperate>
+            <BlogOperate :item="item" v-if="activeName === 'myself'"></BlogOperate>
         </div>
         <div class="detail">
             <div class="vistor">
@@ -24,7 +24,7 @@
 import BlogOperate from '@/components/BlogOperate'
 
 export default {
-  props: ['item'],
+  props: ['item', 'activeName'],
   data () {
     return {}
   },
@@ -48,7 +48,7 @@ h3 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  h3{
+  h3 {
     width: 80%;
   }
 }

@@ -9,7 +9,9 @@ const urls = {
   addVistorCount: '/blog/addVistorCount',
   blogLogin: '/blog/login',
   addUser: '/blog/addUser',
-  curUserInfo: '/blog/curUserInfo'
+  curUserInfo: '/blog/curUserInfo',
+  getMyBlog: '/blog/getMyBlog',
+  getAllPublicBlog: '/blog/getAllPublicBlog'
 }
 
 export default urls

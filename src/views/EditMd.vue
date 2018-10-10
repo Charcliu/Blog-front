@@ -6,6 +6,10 @@
             <el-form-item label="标题">
               <el-input v-model="title" placeholder="请输入标题"></el-input>
             </el-form-item>
+            <el-form-item label="可见性">
+              <el-radio v-model="visible" label="1">公有</el-radio>
+              <el-radio v-model="visible" label="0">私有</el-radio>
+            </el-form-item>
             <el-form-item label="内容">
               <mavon-editor v-model="content" :navigation="false" :ishljs="true" :codeStyle="codeStyle" @save="saveBlog"/>
             </el-form-item>
@@ -38,7 +42,8 @@ export default {
           type: 1
         }
       },
-      labelPosition: 'right'
+      labelPosition: 'right',
+      visible: ''
     }
   },
   mounted () {
@@ -53,8 +58,11 @@ export default {
           _this.blogInfo = oneBlogList.data
           _this.content = _this.blogInfo.content
           _this.title = _this.blogInfo.title
+          _this.visible = _this.blogInfo.visible + ''
         }
       )
+    } else {
+      _this.visible = '1'
     }
   },
   methods: {
@@ -86,7 +94,8 @@ export default {
       this.postRequestBody(urls.insertBlog, {
         title: this.title,
         content: this.content,
-        vistor_count: 0
+        vistor_count: 0,
+        visible: this.visible
       }).then(res => {
         _this.$message({
           showClose: true,
@@ -101,7 +110,8 @@ export default {
       this.postRequestBody(urls.updateBlog, {
         title: this.title,
         content: this.content,
-        id: this.blogInfo.id
+        id: this.blogInfo.id,
+        visible: this.visible
       }).then(res => {
         _this.$message({
           showClose: true,
