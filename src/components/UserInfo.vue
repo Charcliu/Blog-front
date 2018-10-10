@@ -2,30 +2,51 @@
     <div class="userInfo">
         <img src="../assets/user.png" alt="用户头像">
         <div class="nickName">
-            Chang Lau
+            {{userInfo.username}}
         </div>
         <div class="bio">
-            这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。
+            {{userInfo.signature}}
         </div>
         <div class="address">
             <i class="el-icon-location"></i>
-            <span>Xi'an China</span>
+            <span>{{userInfo.address}}</span>
         </div>
         <div class="email">
             <i class="el-icon-message"></i>
-            <a href="mailto:f.liuchang@gmail.com">f.liuchang@gmail.com</a>
+            <a :href="'mailto:'+userInfo.email">{{userInfo.email}}</a>
         </div>
         <div class="githubAddress">
             <i class="el-icon-star-on"></i>
-            <a href="https://github.com/Wofluently" target="_blank">https://github.com/Wofluently</a>
+            <a :href="'http://'+userInfo.space" target="_blank">{{userInfo.space}}</a>
         </div>
     </div>
 </template>
 <script>
+import urls from '@/axios/urls'
+
 export default {
   name: 'UserInfo',
   data () {
-    return {}
+    return {
+      userInfo: {
+        username: '',
+        password: '',
+        address: '',
+        email: '',
+        space: '',
+        signature: ''
+      }
+    }
+  },
+  mounted () {
+    let _this = this
+    this.postRequestBody(urls.curUserInfo)
+      .then(res => {
+        _this.userInfo = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
