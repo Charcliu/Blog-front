@@ -34,6 +34,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/Register.vue')
     }
   ],
   // 滚动行为
@@ -47,11 +52,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'login') {
+  if (to.name === 'login' || to.fullPath === '/' || to.name === 'register') {
     next()
   } else {
     axios
-      .get('/api/blog/test')
+      .get('/api/blog/isSession')
       .then(res => {
         next()
       })

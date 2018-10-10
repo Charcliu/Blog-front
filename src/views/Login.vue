@@ -2,17 +2,13 @@
     <div class="login">
       <div class="content">
           <h3>登录博客</h3>
-          <el-input v-model="username" placeholder="请输入账号"></el-input>
+          <el-input v-model="username" placeholder="请输入用户名"></el-input>
           <el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
           <el-button type="info" @click="login">登录</el-button>
-          <div>
+          <div class="register">
             <span>没有账号？请</span>
-            <strong>注册</strong>
+            <strong @click="toRegister">注册</strong>
           </div>
-      </div>
-      <div>
-        <span>没有账号？</span>
-        <span>请注册</span>
       </div>
     </div>
 </template>
@@ -49,6 +45,9 @@ export default {
           })
         }
       })
+    },
+    toRegister () {
+      this.$router.push('/register')
     }
   }
 }
@@ -62,6 +61,13 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  .register {
+    margin-top: 60px;
+    text-align: center;
+    strong {
+      cursor: pointer;
+    }
+  }
 }
 
 h3 {
@@ -84,7 +90,7 @@ h3 {
     align-items: center;
     > div {
       width: 60%;
-      padding-bottom: 10px;
+      margin-bottom: 15px;
     }
     > button {
       width: 60%;
@@ -95,7 +101,7 @@ h3 {
 @media screen and (max-width: 768px) {
   .content {
     background-color: #fff;
-    height: 300px;
+    height: 400px;
     width: 300px;
     box-shadow: 1px 1px 10px rgb(235, 200, 200);
     display: flex;
@@ -103,6 +109,7 @@ h3 {
     align-items: center;
     > div {
       width: 60%;
+      margin-bottom: 15px;
     }
     > button {
       width: 60%;
