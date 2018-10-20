@@ -24,7 +24,7 @@
 import axios from 'axios'
 
 export default {
-  data() {
+  data () {
     return {
       fileList: [
         {
@@ -41,23 +41,23 @@ export default {
     }
   },
   methods: {
-    handleRemove(file, fileList) {
+    handleRemove (file, fileList) {
       console.log(file, fileList)
     },
-    handlePreview(file) {
+    handlePreview (file) {
       console.log(file)
     },
-    handleExceed(files, fileList) {
+    handleExceed (files, fileList) {
       this.$message.warning(
         `当前限制选择 3 个文件，本次选择了 ${
           files.length
         } 个文件，共选择了 ${files.length + fileList.length} 个文件`
       )
     },
-    beforeRemove(file, fileList) {
+    beforeRemove (file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
     },
-    upload: function(e) {
+    upload: function (e) {
       let file = e.target.files[0]
       let param = new FormData() // 创建form对象
       param.append('file', file, file.name) // 通过append向form对象添加数据
