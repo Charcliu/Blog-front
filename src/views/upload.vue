@@ -58,6 +58,7 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`)
     },
     upload: function (e) {
+    //   上传
       let file = e.target.files[0]
       let param = new FormData() // 创建form对象
       param.append('file', file, file.name) // 通过append向form对象添加数据
