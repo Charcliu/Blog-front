@@ -39,6 +39,11 @@ const router = new Router({
       path: '/register',
       name: 'register',
       component: () => import('../views/Register.vue')
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: () => import('../views/upload.vue')
     }
   ],
   // 滚动行为
