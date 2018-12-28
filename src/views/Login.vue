@@ -56,7 +56,7 @@ export default {
 .login {
   width: 100%;
   height: 100%;
-  background-color: #333;
+  // background-color: #333;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -8,7 +8,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://172.31.120.111:8080/',
+        target: 'https://www.coffeecola.cn:8080/',
         ws: true,
         changeOrigin: true,
         pathRewrite: {
