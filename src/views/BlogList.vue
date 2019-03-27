@@ -17,6 +17,16 @@
               <BlogItem :item="item" :active-name="activeName"></BlogItem>
             </div>
           </div>
+          <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageNum"
+            :page-sizes="[10, 20, 30, 50]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
+          ></el-pagination>
         </el-col>
       </el-row>
     </div>
@@ -46,7 +56,10 @@ export default {
           type: 0
         }
       },
-      activeName: ""
+      activeName: "",
+      pageNum: 1,
+      pageSize: 10,
+      total: 0
     };
   },
   mounted() {
@@ -63,6 +76,8 @@ export default {
       this.$router.push({ name: "editMd", params: { blogId: 0 } });
     },
     handleClick(tab, event) {
+      this.pageNum = 1;
+      this.pageSize = 10;
       if (this.activeName === "all") {
         this.SET_CURRENT_NAV_NAME("all");
         this.getAllPublicBlog();
@@ -74,25 +89,46 @@ export default {
     },
     getAllPublicBlog() {
       let _this = this;
-      this.postRequestBody(urls.getAllPublicBlog, {}).then(res => {
-        res.data.forEach(element => {
+      this.postRequestBody(urls.getAllPublicBlog, {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      }).then(res => {
+        res.data.list.forEach(element => {
           element.time = convertDateToLocalString(
             convertTimeStampToDate(element.time)
           );
         });
-        _this.SET_BLOG_LIST(res.data);
+        this.total = res.data.total;
+        _this.SET_BLOG_LIST(res.data.list);
       });
     },
     getMyBlog() {
       let _this = this;
-      this.postRequestBody(urls.getMyBlog, {}).then(res => {
-        res.data.forEach(element => {
+      this.postRequestBody(urls.getMyBlog, {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      }).then(res => {
+        res.data.list.forEach(element => {
           element.time = convertDateToLocalString(
             convertTimeStampToDate(element.time)
           );
         });
-        _this.SET_BLOG_LIST(res.data);
+        this.total = res.data.total;
+        _this.SET_BLOG_LIST(res.data.list);
       });
+    },
+    handleCurrentChange(val) {
+      this.pageNum = val;
+      this.$store.state.CURRENT_NAV_NAME === "myself"
+        ? this.getMyBlog()
+        : this.getAllPublicBlog();
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageNum = 1;
+      this.$store.state.CURRENT_NAV_NAME === "myself"
+        ? this.getMyBlog()
+        : this.getAllPublicBlog();
     }
   },
   computed: {
@@ -120,7 +156,7 @@ $header-height: 5rem;
   margin: auto;
   padding-top: $header-height;
   .content {
-    padding-bottom: 6.25rem;
+    // padding-bottom: 6.25rem;
     .list {
       border: 1px solid #e8e8e8;
       border-radius: 5px;
@@ -129,6 +165,11 @@ $header-height: 5rem;
       background-color: #fff;
     }
   }
+}
+
+.el-pagination {
+  text-align: right;
+  margin: 20px 0px;
 }
 
 .nav {
